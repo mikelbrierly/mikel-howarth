@@ -9,6 +9,16 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
+        port: "",
+        pathname: "/mikelbrierly/blog-posts/main/images/**",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;
