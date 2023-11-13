@@ -4,6 +4,8 @@ import "./globals.css";
 
 const arOneSans = AR_One_Sans({
   subsets: ["latin"],
+  display: "swap",
+  adjustFontFallback: false,
   fallback: ["system-ui", "arial"],
 });
 

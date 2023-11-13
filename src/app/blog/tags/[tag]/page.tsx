@@ -1,4 +1,4 @@
-import { getPostsMeta } from "../../../../lib/posts";
+import { getPostsMeta } from "../../../../../lib/posts";
 import ListItem from "@/app/components/listItem";
 import Link from "next/link";
 

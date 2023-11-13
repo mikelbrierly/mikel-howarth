@@ -1,4 +1,4 @@
-import { getPostsMeta, getPostByName } from "../../../../lib/posts";
+import { getPostsMeta, getPostByName } from "../../../../../lib/posts";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import "highlight.js/styles/github-dark.css";
@@ -47,7 +47,7 @@ export default async function Post({ params: { postId } }: Props) {
   const pubDate = meta.date;
 
   const tags = meta.tags.map((tag, i) => (
-    <Link key={i} href={`/tags/${tag}`}>
+    <Link key={i} href={`/blog/tags/${tag}`}>
       {tag}
     </Link>
   ));
