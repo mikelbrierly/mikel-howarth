@@ -133,11 +133,7 @@ export default function Vvordle() {
     <main className="flex flex-col justify-center items-center w-screen h-screen">
       <Board userGuesses={userGuesses} />
       <br />
-      <GuessInput
-        textColor="black"
-        onGuessChange={onGuessChange}
-        submitGuess={submitGuess}
-      />
+      <GuessInput onGuessChange={onGuessChange} submitGuess={submitGuess} />
       <br />
       <Keyboard keyboardHints={keyboardHints} characters={keyboardCharacters} />
       <br />
