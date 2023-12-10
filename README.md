@@ -7,3 +7,5 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 <!-- GSAP has a FLIP plugin that can be used with that library as well -->
 
 <!-- TODO: look into react-feather -->
+
+<!-- Jargonaut - name of lookup tool -->

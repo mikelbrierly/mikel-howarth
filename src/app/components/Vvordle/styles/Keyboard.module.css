@@ -1,0 +1,23 @@
+.wrapper {
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 25px;
+  border: 1px solid grey;
+  background: lightgrey;
+  padding: 5px;
+}
+
+.absent {
+  background: darkgrey;
+}
+
+.wrong-pos {
+  background: darkgoldenrod;
+}
+
+.correct {
+  background: darkgreen;
+}

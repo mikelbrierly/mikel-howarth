@@ -1,4 +1,4 @@
-import Posts from "../components/posts";
+import Posts from "../components/blog/Posts";
 
 export const revalidate = 86400; // 1 day
 

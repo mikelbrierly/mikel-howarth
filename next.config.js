@@ -19,6 +19,8 @@ const nextConfig = {
       },
     ],
   },
+  // in dev mode, react fires certain functions/components twice. Uncomment for debugging if needed.
+  reactStrictMode: false,
 };
 
 module.exports = nextConfig;
