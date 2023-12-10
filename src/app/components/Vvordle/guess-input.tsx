@@ -1,16 +1,11 @@
 import React from "react";
 
 type Props = {
-  textColor: string;
   submitGuess: any;
   onGuessChange: Function;
 };
 
-export default function GuessInput({
-  textColor,
-  onGuessChange,
-  submitGuess,
-}: Props) {
+export default function GuessInput({ onGuessChange, submitGuess }: Props) {
   const [userGuess, setUserGuess] = React.useState("");
 
   return (
@@ -26,13 +21,14 @@ export default function GuessInput({
         placeholder="guess input component"
         maxLength={5}
         minLength={5}
-        className={`text-${textColor}`}
+        className="text-black w-fit"
         value={userGuess}
         onChange={(e) => {
           onGuessChange(e.target.value);
           return setUserGuess(e.target.value);
         }}
       />
+      <button className="bg-slate-400 border p-2">Submit</button>
     </form>
   );
 }
