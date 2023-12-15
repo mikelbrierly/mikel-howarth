@@ -10,32 +10,32 @@ import IsWord from "./is-word";
 
 export default function Vvordle() {
   const [guessRubric, setGuessRubric] = React.useState<GuessRubric>({
-    q: [],
-    w: [],
-    e: [],
-    r: [],
-    t: [],
-    y: [],
-    u: [],
-    i: [],
-    o: [],
-    p: [],
-    a: [],
-    s: [],
-    d: [],
-    f: [],
-    g: [],
-    h: [],
-    j: [],
-    k: [],
-    l: [],
-    z: [],
-    x: [],
-    c: [],
-    v: [],
-    b: [],
-    n: [],
-    m: [],
+    Q: [],
+    W: [],
+    E: [],
+    R: [],
+    T: [],
+    Y: [],
+    U: [],
+    I: [],
+    O: [],
+    P: [],
+    A: [],
+    S: [],
+    D: [],
+    F: [],
+    G: [],
+    H: [],
+    J: [],
+    K: [],
+    L: [],
+    Z: [],
+    X: [],
+    C: [],
+    V: [],
+    B: [],
+    N: [],
+    M: [],
   });
 
   const [userGuesses, setUserGuesses] = React.useState<UserGuesses>({
@@ -49,13 +49,41 @@ export default function Vvordle() {
 
   const WORD = FetchWord();
 
-  const [attempt, setAttempt] = React.useState<number>(1);
+  const [attempt, setAttempt] = React.useState<keyof UserGuesses>(1);
 
   const keyboardCharacters = Object.keys(guessRubric);
+
   const [keyboardHints, setKeyboardHints] = React.useState<KeyboardHints>({
-    absent: [],
-    wrongPos: [],
-    correct: [],
+    1: {
+      absent: [],
+      wrongPos: [],
+      correct: [],
+    },
+    2: {
+      absent: [],
+      wrongPos: [],
+      correct: [],
+    },
+    3: {
+      absent: [],
+      wrongPos: [],
+      correct: [],
+    },
+    4: {
+      absent: [],
+      wrongPos: [],
+      correct: [],
+    },
+    5: {
+      absent: [],
+      wrongPos: [],
+      correct: [],
+    },
+    6: {
+      absent: [],
+      wrongPos: [],
+      correct: [],
+    },
   });
 
   React.useEffect(() => {
@@ -82,10 +110,6 @@ export default function Vvordle() {
 
     if (guess === WORD) return alert("you guessed it!"); // TODO: make this actual logic
 
-    // logic to check the guess against the real answer, and then update the guess_key accordingly.
-
-    // console.log(`you guessed ${guess}, which returned: ${validWord}`);
-
     const correct = guess
       .split("")
       .filter((item, index) => guessRubric[item].includes(index));
@@ -98,19 +122,22 @@ export default function Vvordle() {
       .split("")
       .filter((item, index) => guessRubric[item].length === 0);
 
-    // console.log("correct: ", correct);
-    // console.log("wrongPos: ", wrongPos);
-    // console.log("absent: ", absent);
+    const nextKeyboardHints = {
+      ...keyboardHints,
+      [attempt]: {
+        absent: [...absent, ...keyboardHints[attempt].absent],
+        wrongPos: [...wrongPos, ...keyboardHints[attempt].wrongPos],
+        correct: [...correct, ...keyboardHints[attempt].correct],
+      },
+    };
+    // console.log(nextKeyboardHints);
+    // console.log(keyboardHints);
 
-    setKeyboardHints({
-      absent: [...absent, ...keyboardHints.absent],
-      wrongPos: [...wrongPos, ...keyboardHints.wrongPos],
-      correct: [...correct, ...keyboardHints.correct],
-    });
+    setKeyboardHints(nextKeyboardHints);
 
     // console.log(keyboardHints);
 
-    setAttempt(attempt + 1);
+    setAttempt((attempt + 1) as keyof UserGuesses);
   };
 
   const onGuessChange = (letters: string) => {
@@ -131,11 +158,19 @@ export default function Vvordle() {
 
   return (
     <main className="flex flex-col justify-center items-center w-screen h-screen">
-      <Board userGuesses={userGuesses} />
+      <Board
+        userGuesses={userGuesses}
+        keyboardHints={keyboardHints}
+        attempt={attempt}
+      />
       <br />
       <GuessInput onGuessChange={onGuessChange} submitGuess={submitGuess} />
       <br />
-      <Keyboard keyboardHints={keyboardHints} characters={keyboardCharacters} />
+      <Keyboard
+        keyboardHints={keyboardHints}
+        characters={keyboardCharacters}
+        attempt={attempt}
+      />
       <br />
       {WORD}
     </main>

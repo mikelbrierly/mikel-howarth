@@ -24,6 +24,7 @@ export default function GuessInput({ onGuessChange, submitGuess }: Props) {
         className="text-black w-fit"
         value={userGuess}
         onChange={(e) => {
+          e.target.value = e.target.value.toUpperCase();
           onGuessChange(e.target.value);
           return setUserGuess(e.target.value);
         }}

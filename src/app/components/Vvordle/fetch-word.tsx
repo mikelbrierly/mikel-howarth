@@ -27,5 +27,5 @@ export default function FetchWord(): string {
     //   });
   }, []);
 
-  return word;
+  return word.toUpperCase();
 }

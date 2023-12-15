@@ -6,23 +6,31 @@
 type Props = {
   characters: string[]; // TODO: strengthen the types here
   keyboardHints: KeyboardHints;
+  attempt: keyof UserGuesses;
 };
 
 import styles from "./styles/Keyboard.module.css";
 
-export default function Keyboard({ characters, keyboardHints }: Props) {
+export default function Keyboard({
+  characters,
+  keyboardHints,
+  attempt,
+}: Props) {
   let color = "lightgrey";
   const rows: any[] = [[], [], []];
 
   const LetterKey = ({ character, color }: any) => {
-    console.log("renders");
-    if (keyboardHints.absent.includes(character)) {
-      color = styles.absent;
-    } else if (keyboardHints.wrongPos.includes(character)) {
-      color = styles["wrong-pos"];
-    } else if (keyboardHints.correct.includes(character)) {
-      color = styles.correct;
-    }
+    // TODO: refactor
+    Object.values(keyboardHints).forEach((item: any) => {
+      if (item.absent.includes(character)) {
+        color = styles.absent;
+      } else if (item.wrongPos.includes(character)) {
+        color = styles["wrong-pos"];
+      } else if (item.correct.includes(character)) {
+        color = styles.correct;
+      }
+    });
+
     const className = `${styles.wrapper}`;
     return <div className={`${className} ${color}`}>{character}</div>;
   };

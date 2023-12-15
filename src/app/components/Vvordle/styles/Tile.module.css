@@ -5,3 +5,15 @@
   width: 40px;
   height: 40px;
 }
+
+.absent {
+  background: darkgrey;
+}
+
+.wrong-pos {
+  background: darkgoldenrod;
+}
+
+.correct {
+  background: darkgreen;
+}
