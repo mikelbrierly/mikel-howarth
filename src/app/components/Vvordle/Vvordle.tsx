@@ -151,6 +151,10 @@ export default function Vvordle() {
     if (attempt === 6 && guess !== WORD) {
       setGameOver("loss");
     }
+
+    if (guess === WORD) {
+      setGameOver("win");
+    }
   };
 
   const keyOnClick = (char: string) => {
@@ -234,6 +238,7 @@ export default function Vvordle() {
           attempt={attempt}
         />
       )}
+      {WORD}
     </main>
   );
 }
