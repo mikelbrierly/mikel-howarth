@@ -198,7 +198,7 @@ export default function Vvordle() {
           }}
           className="text-stone-50"
         />
-        <label htmlFor="vvordle-input" className="text-xs ml-2">
+        <label htmlFor="vvordle-input" className="text-xs ml-2 text-stone-50">
           INPUT FIELD
         </label>
       </div>
