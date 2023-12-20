@@ -187,7 +187,7 @@ export default function Vvordle() {
   };
 
   return (
-    <main className="flex flex-col justify-center items-center p-6 bg-zinc-950">
+    <main className="flex flex-col justify-start items-center p-6 h-screen bg-zinc-950">
       <div className="flex mb-1">
         <input
           id="vvordle-input"
