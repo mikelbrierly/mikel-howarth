@@ -48,8 +48,12 @@ export default function Vvordle() {
   });
 
   const WORD = FetchWord();
+  const [gameOver, setGameOver] = React.useState<"" | "loss" | "win">("");
 
   const [attempt, setAttempt] = React.useState<keyof UserGuesses>(1);
+
+  const [userInputValue, setUserInputValue] = React.useState("");
+  const [isReadOnly, setIsReadOnly] = React.useState(false);
 
   const keyboardCharacters = Object.keys(guessRubric);
 
@@ -104,11 +108,16 @@ export default function Vvordle() {
   // console.log("letterHints", letterHints);
 
   const submitGuess = async (guess: string) => {
+    if (userInputValue && !guess) {
+      guess = userInputValue;
+    }
+
+    if (attempt > 6) return;
     const validWord = await IsWord(guess);
 
-    if (!validWord) return alert("not a valid word!"); // TODO: make this the jiggle for invalid
+    if (!guess || !validWord) return alert("not a valid word!"); // TODO: make this the jiggle for invalid
 
-    if (guess === WORD) return alert("you guessed it!"); // TODO: make this actual logic
+    // if (guess === WORD) return alert("you guessed it!"); // TODO: make this actual logic
 
     const correct = guess
       .split("")
@@ -130,14 +139,35 @@ export default function Vvordle() {
         correct: [...correct, ...keyboardHints[attempt].correct],
       },
     };
-    // console.log(nextKeyboardHints);
-    // console.log(keyboardHints);
+
+    // TODO: trigger flip animation (reveal row)
 
     setKeyboardHints(nextKeyboardHints);
 
-    // console.log(keyboardHints);
-
     setAttempt((attempt + 1) as keyof UserGuesses);
+
+    setUserInputValue("");
+
+    if (attempt === 6 && guess !== WORD) {
+      setGameOver("loss");
+    }
+  };
+
+  const keyOnClick = (char: string) => {
+    if (userInputValue.length >= 5) return;
+    const nextUserInputValue = userInputValue + char;
+    setUserInputValue(nextUserInputValue);
+    onGuessChange(nextUserInputValue);
+  };
+
+  const onClickBackspace = () => {
+    if (userInputValue.length === 0) return;
+    const nextUserInputValue = userInputValue.slice(
+      0,
+      userInputValue.length - 1
+    );
+    setUserInputValue(nextUserInputValue);
+    onGuessChange(nextUserInputValue);
   };
 
   const onGuessChange = (letters: string) => {
@@ -157,22 +187,53 @@ export default function Vvordle() {
   };
 
   return (
-    <main className="flex flex-col justify-center items-center w-screen h-screen">
+    <main className="flex flex-col justify-center items-center p-2 m-5">
+      <div className="flex mb-3">
+        <input
+          id="vvordle-input"
+          type="checkbox"
+          checked={isReadOnly}
+          onChange={(e) => {
+            setIsReadOnly(e.target.checked);
+          }}
+          className="text-white"
+        />
+        <label htmlFor="vvordle-input" className="text-sm ml-2">
+          INPUT FIELD
+        </label>
+      </div>
       <Board
+        className="mb-5"
         userGuesses={userGuesses}
         keyboardHints={keyboardHints}
         attempt={attempt}
       />
-      <br />
-      <GuessInput onGuessChange={onGuessChange} submitGuess={submitGuess} />
-      <br />
-      <Keyboard
-        keyboardHints={keyboardHints}
-        characters={keyboardCharacters}
-        attempt={attempt}
-      />
-      <br />
-      {WORD}
+      {isReadOnly && (
+        <GuessInput
+          className="mb-5"
+          onGuessChange={onGuessChange}
+          submitGuess={submitGuess}
+          userInputValue={userInputValue}
+          setUserInputValue={setUserInputValue}
+          disabled={gameOver}
+          isReadOnly={!isReadOnly}
+        />
+      )}
+      <span className="flex h-8">
+        {gameOver === "loss" && <p>😦 {WORD}</p>}
+        {gameOver === "win" && <p>🎉</p>}
+        {gameOver === "" && <p>🤔</p>}
+      </span>
+      {!isReadOnly && (
+        <Keyboard
+          keyboardHints={keyboardHints}
+          keyOnClick={keyOnClick}
+          onClickBackspace={onClickBackspace}
+          onClickEnter={submitGuess}
+          characters={keyboardCharacters}
+          attempt={attempt}
+        />
+      )}
     </main>
   );
 }

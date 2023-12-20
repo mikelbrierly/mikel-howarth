@@ -6,6 +6,9 @@
 type Props = {
   characters: string[]; // TODO: strengthen the types here
   keyboardHints: KeyboardHints;
+  keyOnClick: Function;
+  onClickEnter: Function;
+  onClickBackspace: Function;
   attempt: keyof UserGuesses;
 };
 
@@ -14,6 +17,9 @@ import styles from "./styles/Keyboard.module.css";
 export default function Keyboard({
   characters,
   keyboardHints,
+  keyOnClick,
+  onClickEnter,
+  onClickBackspace,
   attempt,
 }: Props) {
   let color = "lightgrey";
@@ -21,26 +27,61 @@ export default function Keyboard({
 
   const LetterKey = ({ character, color }: any) => {
     // TODO: refactor
-    Object.values(keyboardHints).forEach((item: any) => {
+    Object.values(keyboardHints).forEach((item: any, index) => {
+      if (item.correct.includes(character)) {
+        return (color = styles.correct);
+      }
+
+      // if the previous guess had a higher color to show, then just return, because the keyboard colors should only go "up", never from green to yellow
+      // TODO: this is awful though because index is not guaranteed to be a type that matches the keys of keyboardHints. Need to clean this up.
+      if (keyboardHints[index]?.correct.includes(character)) return;
+      if (item.wrongPos.includes(character)) {
+        return (color = styles["wrong-pos"]);
+      }
+      // if the previous guess had a higher color to show, then just return, because the keyboard colors should only go "up", never from green to yellow
+      // I also think there is a bug here getting out of sync with the state
+      if (keyboardHints[index]?.wrongPos.includes(character)) return;
       if (item.absent.includes(character)) {
-        color = styles.absent;
-      } else if (item.wrongPos.includes(character)) {
-        color = styles["wrong-pos"];
-      } else if (item.correct.includes(character)) {
-        color = styles.correct;
+        return (color = styles.absent);
       }
     });
 
     const className = `${styles.wrapper}`;
-    return <div className={`${className} ${color}`}>{character}</div>;
+    return (
+      <button
+        className={`${className} ${color}`}
+        onClick={() => keyOnClick(character)}
+      >
+        {character}
+      </button>
+    );
   };
 
   // TODO: switch to grid layout (maybe?)
   const QwertyLayout = ({ rows }: any) => (
-    <div className="flex flex-col">
-      <div className="row-1 flex">{rows[0]}</div>
-      <div className="row-2 flex">{rows[1]}</div>
-      <div className="row-3 flex">{rows[2]}</div>
+    <div
+      className={`flex flex-col w-full pl-3 pr-3 max-w-xl ${styles["key-container"]}`}
+    >
+      <div className="row-1 flex justify-center items-center">{rows[0]}</div>
+      <div className="row-2 flex justify-center items-center mr-4 ml-4">
+        {rows[1]}
+      </div>
+      <div className="row-3 flex justify-center items-center">
+        {/* TODO: add icons for backspace and other areas*/}
+        <button
+          className={`flex justify-center items-center min-w-fit ${styles["action-key"]}`}
+          onClick={() => onClickEnter()}
+        >
+          ENTER
+        </button>
+        {rows[2]}
+        <button
+          className={`flex justify-center items-center min-w-fit ${styles["action-key"]}`}
+          onClick={() => onClickBackspace()}
+        >
+          BKSPS
+        </button>
+      </div>
     </div>
   );
 

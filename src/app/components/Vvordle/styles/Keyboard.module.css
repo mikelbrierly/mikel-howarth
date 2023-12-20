@@ -1,23 +1,78 @@
-.wrapper {
-  color: black;
+.wrapper,
+.action-key {
+  box-sizing: border-box;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 25px;
-  border: 1px solid grey;
-  background: lightgrey;
-  padding: 5px;
+  width: 30px;
+  height: 40px;
+  background: #9a9a9a;
+  padding: 7px;
+  margin: 0.2rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  flex: 1;
+  transition: all 0.15s ease-in-out;
+}
+
+.wrapper:hover,
+.action-key:hover {
+  cursor: pointer;
+  background: #adadad;
+}
+
+.wrapper:active,
+.action-key:active {
+  cursor: pointer;
+  background: #787878;
+}
+
+.action-key {
+  flex: 1;
+  font-size: 12px;
+}
+
+.key-container {
+  position: fixed;
+  bottom: 0;
+  padding-bottom: 3rem;
+  padding-top: 5px;
+  background: black;
 }
 
 .absent {
-  background: darkgrey;
+  background: #585858;
+}
+
+.absent:hover {
+  background: #6c6c6c;
+}
+
+.absent:active {
+  background: #4b4b4b;
 }
 
 .wrong-pos {
   background: darkgoldenrod;
 }
 
+.wrong-pos:hover {
+  background: rgb(207, 156, 29);
+}
+
+.wrong-pos:active {
+  background: rgb(158, 119, 22);
+}
+
 .correct {
   background: darkgreen;
+}
+
+.correct:hover {
+  background: rgb(0, 138, 0);
+}
+
+.correct:active {
+  background: rgb(1, 77, 1);
 }

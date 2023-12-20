@@ -1,13 +1,11 @@
 .wrapper {
-  color: black;
-  background: lightgrey;
-  border: 1px solid darkgrey;
-  width: 40px;
-  height: 40px;
+  border: 1px solid grey;
+  width: 3.5rem;
+  height: 3.5rem;
 }
 
 .absent {
-  background: darkgrey;
+  background: grey;
 }
 
 .wrong-pos {
