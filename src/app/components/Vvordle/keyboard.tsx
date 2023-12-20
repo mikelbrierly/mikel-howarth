@@ -28,19 +28,20 @@ export default function Keyboard({
   const LetterKey = ({ character, color }: any) => {
     // TODO: refactor
     Object.values(keyboardHints).forEach((item: any, index) => {
+      const tempHints: any = { ...keyboardHints };
       if (item.correct.includes(character)) {
         return (color = styles.correct);
       }
 
       // if the previous guess had a higher color to show, then just return, because the keyboard colors should only go "up", never from green to yellow
       // TODO: this is awful though because index is not guaranteed to be a type that matches the keys of keyboardHints. Need to clean this up.
-      if (keyboardHints[index]?.correct.includes(character)) return;
+      if (tempHints[index]?.correct.includes(character)) return;
       if (item.wrongPos.includes(character)) {
         return (color = styles["wrong-pos"]);
       }
       // if the previous guess had a higher color to show, then just return, because the keyboard colors should only go "up", never from green to yellow
       // I also think there is a bug here getting out of sync with the state
-      if (keyboardHints[index]?.wrongPos.includes(character)) return;
+      if (tempHints[index]?.wrongPos.includes(character)) return;
       if (item.absent.includes(character)) {
         return (color = styles.absent);
       }
