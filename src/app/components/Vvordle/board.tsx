@@ -22,7 +22,7 @@ export default function Board({
   const TileRow = ({ rowNum }: { rowNum: number }) => {
     let tileType = "";
     return (
-      <div className="flex w-full justify-around max-w-xs">
+      <div className="flex justify-around max-w-xs">
         {userGuesses[rowNum].map((item: string) => {
           const id = crypto.randomUUID();
           const prevAttempt = attempt - 1;

@@ -10,7 +10,7 @@
   background: #9a9a9a;
   padding: 7px;
   margin: 0.2rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
   border-radius: 4px;
   flex: 1;
   transition: all 0.15s ease-in-out;
@@ -36,7 +36,7 @@
 .key-container {
   position: fixed;
   bottom: 0;
-  padding-bottom: 3rem;
+  padding-bottom: 0.2rem;
   padding-top: 5px;
   background: black;
 }

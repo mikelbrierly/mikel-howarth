@@ -187,8 +187,8 @@ export default function Vvordle() {
   };
 
   return (
-    <main className="flex flex-col justify-center items-center p-2 m-5">
-      <div className="flex mb-3">
+    <main className="flex flex-col justify-center items-center p-1 m-5">
+      <div className="flex mb-1">
         <input
           id="vvordle-input"
           type="checkbox"
@@ -198,7 +198,7 @@ export default function Vvordle() {
           }}
           className="text-white"
         />
-        <label htmlFor="vvordle-input" className="text-sm ml-2">
+        <label htmlFor="vvordle-input" className="text-xs ml-2">
           INPUT FIELD
         </label>
       </div>
