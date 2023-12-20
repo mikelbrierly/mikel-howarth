@@ -196,7 +196,7 @@ export default function Vvordle() {
           onChange={(e) => {
             setIsReadOnly(e.target.checked);
           }}
-          className="text-white"
+          className="text-stone-50"
         />
         <label htmlFor="vvordle-input" className="text-xs ml-2">
           INPUT FIELD
