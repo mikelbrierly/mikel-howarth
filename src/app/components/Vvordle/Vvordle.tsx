@@ -238,7 +238,6 @@ export default function Vvordle() {
           attempt={attempt}
         />
       )}
-      {WORD}
     </main>
   );
 }
